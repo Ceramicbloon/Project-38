@@ -34,11 +34,35 @@ function setup() {
 
 
   database = firebase.database()
- 
+
   dog = createSprite(247, 600, 20, 20)
   dog.scale = 0.3
 
+  feed = createButton("Feed")
+  feed.position(250, 5)
+  feed.mousePressed(feedDog)
 
+
+
+  addFood = createButton("Add Food")
+  addFood.position(300, 5)
+  addFood.mousePressed(moreFood)
+
+  gotoroom = createButton("Play In Living Room")
+  gotoroom.position(70, 30)
+  gotoroom.mousePressed(update(2))
+
+  gotosleep = createButton("Go To Sleep")
+  gotosleep.position(210, 30)
+  gotosleep.mousePressed(change3)
+
+  gotoGarden = createButton("Play In Garden")
+  gotoGarden.position(305, 30)
+  gotoGarden.mousePressed(change4)
+
+  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa = createButton("Take a Bath")
+  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa.position(210, 55)
+  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa.mousePressed(change5)
 
   // park = createButton("Go to Park")
   // park.position(200, 10)
@@ -64,7 +88,7 @@ function setup() {
 function feedDog() {
   dog.addImage(happyDog)
 
-  foodObj.getFoodStock(foodObj.updateFoodStock())
+  foodObj.updateFoodStock()
   gameState = 1
   database.ref('/').update({ 'gameState': gameState })
   //console.log(foods)
@@ -72,22 +96,22 @@ function feedDog() {
 
 }
 
-function change2(){
+function change2() {
   gameState = 2
   database.ref('/').update({ 'gameState': gameState })
 }
 
-function change3(){
+function change3() {
   gameState = 3
   database.ref('/').update({ 'gameState': gameState })
 }
 
-function change4(){
+function change4() {
   gameState = 4
   database.ref('/').update({ 'gameState': gameState })
 }
 
-function change5(){
+function change5() {
   gameState = 5
   database.ref('/').update({ 'gameState': gameState })
 }
@@ -96,12 +120,14 @@ function change5(){
 
 
 function moreFood() {
-  foodObj.getFoodStock(foodObj.addFood())
+  foodObj.addFood()
   gameState = 1
   database.ref('/').update({ 'gameState': gameState })
 }
 
 function update(state) {
+  foodObj.getState()
+  gameState = state
   database.ref('/').update({
     gameState: state
   })
@@ -111,7 +137,7 @@ function update(state) {
 
 // }))
 function draw() {
-  
+
   background(46, 139, 87)
   text(foods, 200, 200)
   // readState = database.ref('gameState')
@@ -120,56 +146,32 @@ function draw() {
   // })
 
 
-  feed = createButton("Feed")
-  feed.position(250, 5)
-  feed.mousePressed(feedDog)
 
-
-
-  addFood = createButton("Add Food")
-  addFood.position(300, 5)
-  addFood.mousePressed(moreFood)
-
-  gotoroom = createButton("Play In Living Room")
-  gotoroom.position(70, 30)
-  gotoroom.mousePressed(change2)
-
-  gotosleep = createButton("Go To Sleep")
-  gotosleep.position(210, 30)
-  gotosleep.mousePressed(change3)
-
-  gotoGarden = createButton("Play In Garden")
-  gotoGarden.position(305, 30)
-  gotoGarden.mousePressed(change4)
-  
-  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa = createButton("Take a Bath")
-  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa.position(210, 55)
-  ajldfhaklsdhfkasdkfhakjhdfkjlhaskldfjhaskldhfa.mousePressed(change5)
   if (gameState === 1) {
     //dog.show()
-    
+
     foodObj.display()
-    
+
+    dog.visible = true
     dog.addImage(dog1)
-  
     //console.log("a")
-  } else if(gameState === 2){
+  } else if (gameState === 2) {
     image(liveroom, 0, 0)
-    
+
     //foodObj.garden()
-    dog.remove()
-  } else if(gameState === 3){
+    dog.visible = false
+  } else if (gameState === 3) {
     image(bedroom, 0, 0)
     //foodObj.sleepyhead()
-    dog.remove()
-  } else if(gameState === 4){
+    dog.visible = false
+  } else if (gameState === 4) {
     image(garden, 0, 0)
     //foodObj.sleepyhead()
-    dog.remove()
-  } else if(gameState === 5){
+    dog.visible = false
+  } else if (gameState === 5) {
     image(bathroom, 0, 0)
     //foodObj.sleepyhead()
-    dog.remove()
+    dog.visible = false
   }
   foodObj.getState();
 

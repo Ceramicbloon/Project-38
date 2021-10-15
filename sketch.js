@@ -153,7 +153,7 @@ function draw() {
     foodObj.display()
 
    
-    dog.addImage(dog1)
+    dog.addImage("value", dog1)
      dog.visible = true
     //console.log("a")
   } else if (gameState === 2) {

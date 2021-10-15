@@ -152,8 +152,9 @@ function draw() {
 
     foodObj.display()
 
-    dog.visible = true
+   
     dog.addImage(dog1)
+     dog.visible = true
     //console.log("a")
   } else if (gameState === 2) {
     image(liveroom, 0, 0)

@@ -50,7 +50,7 @@ function setup() {
 
   gotoroom = createButton("Play In Living Room")
   gotoroom.position(70, 30)
-  gotoroom.mousePressed(update(2))
+  gotoroom.mousePressed(change2)
 
   gotosleep = createButton("Go To Sleep")
   gotosleep.position(210, 30)
